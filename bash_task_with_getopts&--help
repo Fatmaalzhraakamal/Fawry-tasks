@@ -1,0 +1,74 @@
+
+#!/bin/bash
+
+usage_info() {
+
+echo "Options:"
+    echo "  -n      Show line numbers"
+    echo "  -v      Invert match (show non-matching lines)"
+    echo "  --help  Show this help message"
+
+}
+
+if [[ $1 == '--help' ]];
+then
+        usage_info
+        exit 0
+fi
+
+if [[ $# -lt 2 ]];
+then
+        echo "ERROR: argumants less than expected!"
+        exit 1
+fi
+
+#options flags
+num_of_lines=false
+inverted_match=false
+
+#parsing options
+while getopts ":nv" opt; do
+        case $opt in
+                n)num_of_lines=true;;
+                v)inverted_match=true;;
+                \?)
+                        echo "ERROR: unknown option!"
+                        exit 1 ;;
+        esac
+
+done
+
+
+
+shift $((OPTIND - 1))
+
+#store the two arguments (search string- target file)
+search_string=$1
+target_file=$2
+
+#check search_string
+if [[ -z "search_string" ]]; then
+        echo "ERROR: missing search string "
+        exit 1
+fi
+
+
+# make sure file exist
+if [[ ! -f "$target_file" ]]; then
+        echo "ERROR: file not found"
+        exit 1
+fi
+# formulate grep CMD with chosen options
+if $inverted_match; then
+        if $num_of_lines; then
+                grep -vi -n "$search_string" "$target_file"
+        else
+                grep -vi  "$search_string" "$target_file"
+        fi
+else
+        if $num_of_lines; then
+                grep -i -n  "$search_string" "$target_file"
+        else
+                grep -i  "$search_string" "$target_file"
+        fi
+fi
