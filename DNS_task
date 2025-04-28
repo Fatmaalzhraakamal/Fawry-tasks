@@ -1,0 +1,28 @@
+1. first we Verify DNS Resolution
+we want to know if the machine is using the configured dns or an external dns(8.8.8.8)
+when trying 
+CMD   $nslookup internal.example.com
+says  server can't find internal.example.com: NXDOMAIN
+which indicates that this is a DNS error
+to know exactly is it local dns or not we try an external dns like (8.8.8.8)
+trying 
+CMD   $nslookup internal.example.com 8.8.8.8
+if it works then its a local dns problem
+2. we try check netwerk issues
+ping the service the the IP:
+if it works so, no problem with network
+if not it can be network error for example firewall is blocking
+assume the ip is 10.10.10.5
+3. might be problem with the port
+we can try this 
+CMD  $curl -I http://internal.example.com to test the port
+if it reponses with some web page so it works
+if not then problem with port
+
+
+bonus:
+to solve this like temporary we can correct the local dns entry
+CMD $10.10.10.5  internal.example.com
+
+
+
