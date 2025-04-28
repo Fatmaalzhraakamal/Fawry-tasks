@@ -1,0 +1,19 @@
+1-how the script handels options and args:
+for options:
+i made two flags to indicate each option [-n,-v]
+then used the getopts to parse these options and update the flags accordingly
+after this i shifted the parsed options to move on to the arguments...
+for arguments:
+at the begining i needed to make sure the user enters two args with an if condition to avoid unneeded 
+proceeing and exit the script .
+i made a check on both args to make sure that[ the search string is not empty & the file exist ]
+then finaly i fomulated the CMDs based on the flages 
+i took into consuderation tha the task was to make the grep case insebsitive so i 
+put the [-i] iption in all CMDs 
+
+
+
+2-adding other options like regex or -i/-c/-l 
+both can be done by using additional flags and make conditions and cases to hendle them 
+but for regex we need to force the user to enter the search string between "" to avoid errors 
+and use -E option for regex itself
